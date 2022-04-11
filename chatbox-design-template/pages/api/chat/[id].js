@@ -12,7 +12,10 @@ export default async function handler(req, res) {
 
     case "POST":
       const { text } = JSON.parse(req.body);
-      const response = await redis.lpush(id, "o:" + text);
+      console.log(req.body)
+
+      console.log(text)
+      const response = await redis.rpush(id, text);
       return res.status(200).json({ response });
 
     default:

@@ -25,10 +25,10 @@ export default function Chat({ chatArray }) {
 
   const writeToChat = async () => {
     let replyText = "o:" + text;
-
+    
     const response = await fetch(`/api/chat/${id}`, {
       method: "POST",
-      body: JSON.stringify({ text }),
+      body: JSON.stringify({ text: replyText }),
     });
 
     await fetchList();
