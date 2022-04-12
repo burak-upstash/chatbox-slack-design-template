@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import Chatbox from "../../components/chatbox"
 
-export default function Chatbox({ chatArray }) {
+export default function CustomerChatbox({ chatArray }) {
 
 
   // Implement local storage.
@@ -28,7 +29,7 @@ export default function Chatbox({ chatArray }) {
 
 
   async function fetchList(id = UID) {
-    console.log("5:", UID, id)
+    // console.log("5:", UID, id)
     const response = await fetch(`/api/chat/${id}`, { method: "GET" });
     const data = await response.json();
     setChat(data.chatData);
@@ -36,8 +37,8 @@ export default function Chatbox({ chatArray }) {
 
 
   const writeToChat = async () => {
-    console.log("initiated:", chatInitiated);
-    console.log("uid:", UID);
+    // console.log("initiated:", chatInitiated);
+    // console.log("uid:", UID);
 
     // Initiate chat and send to slack channel
     let id = UID
@@ -47,10 +48,10 @@ export default function Chatbox({ chatArray }) {
         method: "POST",
         body: JSON.stringify({ id }),
       })
-      console.log("4", response)
+      // console.log("4", response)
 
       if (response.status == 200) {
-        console.log("in there...")
+        // console.log("in there...")
         setChatInitiated(true)
         setUID(id)
       }
@@ -61,7 +62,7 @@ export default function Chatbox({ chatArray }) {
 
 
     let replyText = "i:" + text;
-    console.log("2:", UID, id)
+    // console.log("2:", UID, id)
 
     const response = await fetch(`/api/chat/${id}`, {
       method: "POST",
@@ -74,9 +75,12 @@ export default function Chatbox({ chatArray }) {
 
   return (
     <div>
+      
       <h2>
-        Hi, {UID}: {chat}
+        Hi, chat id: {UID}:
       </h2>
+      <Chatbox chat={chat}></Chatbox>
+      <br/>
       <form
         onSubmit={(e) => {
           e.preventDefault();

@@ -5,16 +5,16 @@ export default async function handler(req, res) {
   const method = req.method;
 
   const webhook = process.env.SLACK_WEBHOOK
-  console.log("webhook:", webhook)
+  // console.log("webhook:", webhook)
 
   switch (method) {
 
     case "POST":
       const { id } = JSON.parse(req.body);
-      console.log(req.body)
+      // console.log(req.body)
       const text = `New chat with id: http://localhost:3000/chats/${id}`
 
-      console.log("3:", id)
+      // console.log("3:", id)
       const response = await fetch(webhook, {
         method: "POST",
         headers: {'Content-type': 'application/json'},
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({text})
 
       })
-      console.log(response)
+      // console.log(response)
       return res.status(200).json({ response });
 
     default:
